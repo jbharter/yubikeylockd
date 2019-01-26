@@ -3,7 +3,7 @@
 <plist version="1.0">
   <dict>
     <key>Label</key>
-    <string>com.podtynnyi.com.yubikeylockd</string>
+    <string>com.github.jbharter.yubikeylockd</string>
     <key>ProgramArguments</key>
     <array>
       <string>/usr/local/bin/yubikeylockd</string>

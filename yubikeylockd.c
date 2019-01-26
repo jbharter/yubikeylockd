@@ -28,6 +28,8 @@ static IONotificationPortRef	gNotifyPort;
 static io_iterator_t		gAddedIter;
 static CFRunLoopRef		gRunLoop;
 
+extern void SACLockScreenImmediate();
+
 void DeviceNotification( void *		refCon,
                         io_service_t 	service,
                         natural_t 	messageType,
@@ -41,12 +43,9 @@ void DeviceNotification( void *		refCon,
         //
         printf("Yubikey removed. Lock the screen.\n");
 
-        // Lock the keychain too
-        system("/usr/bin/security lock-keychain");
-
         io_registry_entry_t reg = IORegistryEntryFromPath(kIOMasterPortDefault, "IOService:/IOResources/IODisplayWrangler");
         if (reg) {
-            IORegistryEntrySetCFProperty(reg, CFSTR("IORequestIdle"), kCFBooleanTrue);
+            SACLockScreenImmediate();
             IOObjectRelease(reg);
         }
 

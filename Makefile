@@ -1,6 +1,6 @@
 CC=clang
 
-FRAMEWORKS:= -framework IOKit -framework CoreFoundation
+FRAMEWORKS:= -F /System/Library/PrivateFrameworks -framework IOKit -framework CoreFoundation -framework login
 
 SOURCE=yubikeylockd.c
 
@@ -12,6 +12,11 @@ all: yubikeylockd
 
 clean:
 		rm -rf yubikeylockd
+
+install: all
+	  mv yubikeylockd /usr/local/bin/yubikeylockd
+		cp com.github.jbharter.yubikeylockd.plist ~/Library/LaunchAgents
+		launchctl load -w ~/Library/LaunchAgents/com.github.jbharter.yubikeylockd.plist
 
 yubikeylockd:
 		$(CC) $(CFLAGS) $(LDFLAGS) $(OUT)
